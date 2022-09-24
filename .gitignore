@@ -5,3 +5,7 @@
 /package
 /dist
 *.log
+*.map
+*.js
+*.tsbuildinfo
+*.d.ts
