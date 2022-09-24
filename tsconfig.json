@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"module": "ES6",
+		"lib": ["ESNext"],
+		"moduleResolution": "node",
+		"target": "ES6",
+
+		"baseUrl": ".",
+		"rootDirs": ["."],
+
+		"outDir": "dist",
+		"declaration": true,
+		"noEmit": false,
+
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+
+		"allowSyntheticDefaultImports": true,
+		"importsNotUsedAsValues": "preserve",
+		"jsx": "preserve",
+		"incremental": true,
+		"isolatedModules": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true
+	},
+	"include": ["index.ts"],
+	"exclude": ["../node_modules/**"]
+}
