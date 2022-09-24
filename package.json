@@ -22,7 +22,7 @@
 	"prettier": "@inqling/prettier-config",
 	"scripts": {
 		"build": "tsc --pretty",
-		"demo": "npm run build && node ./demo.mjs",
+		"demo": "npm run build && node ./scripts/demo.mjs",
 		"prepare": "npx husky install",
 		"lint": "prettier --check .",
 		"format": "prettier --write .",
