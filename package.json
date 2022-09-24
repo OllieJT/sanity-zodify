@@ -17,12 +17,12 @@
 		"email": "ollie@inqling.studio",
 		"url": "https://inqling.studio/"
 	},
-	"main": "index.js",
-	"type": "module",
 	"prettier": "@inqling/prettier-config",
 	"scripts": {
-		"build": "tsc --pretty",
-		"demo": "npm run build && node ./scripts/demo.mjs",
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"demo": "npm run build && node ./scripts/demo.js",
 		"prepare": "npx husky install",
 		"lint": "prettier --check .",
 		"format": "prettier --write .",
@@ -40,6 +40,19 @@
 		"prettier": "^2.7.1",
 		"sanity": "3.0.0-dev-preview.15",
 		"typescript": "^4.8.3",
+		"vite": "^3.1.0",
 		"zod": "^3.19.1"
+	},
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"main": "./dist/main.umd.cjs",
+	"module": "./dist/main.js",
+	"exports": {
+		".": {
+			"import": "./dist/main.js",
+			"require": "./dist/main.umd.cjs"
+		}
 	}
 }

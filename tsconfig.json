@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"module": "ES6",
-		"lib": ["ESNext"],
+		"module": "ESNext",
+		"lib": ["ESNext", "ES6", "DOM"],
 		"moduleResolution": "node",
 		"target": "ES6",
 
@@ -10,6 +10,7 @@
 		"outDir": ".",
 
 		"declaration": true,
+		"emitDeclarationOnly": true,
 		"noEmit": false,
 
 		"allowJs": true,
@@ -20,16 +21,19 @@
 		"sourceMap": true,
 		"strict": true,
 
-		"allowSyntheticDefaultImports": true,
 		"importsNotUsedAsValues": "preserve",
 		"jsx": "preserve",
+
 		"incremental": true,
 		"isolatedModules": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitReturns": true,
 		"noUncheckedIndexedAccess": true,
-		"noUnusedLocals": true
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"resolveJsonModule": true,
+		"useDefineForClassFields": true
 	},
-	"include": ["index.ts"],
+	"include": ["src/**/*.ts"],
 	"exclude": ["../node_modules/**"]
 }
