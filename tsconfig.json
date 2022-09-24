@@ -6,8 +6,8 @@
 		"target": "ES6",
 
 		"baseUrl": ".",
-		"rootDirs": ["."],
-		"outDir": ".",
+		"rootDirs": ["src"],
+		"outDir": "dist",
 
 		"declaration": true,
 		"emitDeclarationOnly": true,

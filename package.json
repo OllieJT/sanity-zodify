@@ -1,6 +1,6 @@
 {
 	"name": "sanity-zodify",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "Apache-3.0",
 	"description": "",
 	"keywords": [
@@ -20,7 +20,7 @@
 	"prettier": "@inqling/prettier-config",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
+		"build": "vite build && tsc",
 		"preview": "vite preview",
 		"demo": "npm run build && node ./scripts/demo.js",
 		"prepare": "npx husky install",
@@ -48,12 +48,12 @@
 		"dist",
 		"src"
 	],
-	"main": "./dist/main.umd.cjs",
-	"module": "./dist/main.js",
+	"main": "./dist/index.umd.cjs",
+	"module": "./dist/index.js",
 	"exports": {
 		".": {
-			"import": "./dist/main.js",
-			"require": "./dist/main.umd.cjs"
+			"import": "./dist/index.js",
+			"require": "./dist/index.umd.cjs"
 		}
 	}
 }
