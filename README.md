@@ -10,6 +10,10 @@ This kit includes Zod models to help build your schema faster.
 
 I hope to generate models from your Sanity Schema to reduce the time to setup your queries.
 
+## Why not just use Zod types?
+
+You could use Zod types, but you would need to write more boilerplate. This kit aims to codify the proccess of setting up types for your project with convenient transforms of values like date strings into Date objects you can use in your code.
+
 ## Installation
 
 ```bash
@@ -25,6 +29,8 @@ pnpm add -D sanity-zodify
 ```
 
 ## Usage
+
+> Note: This is a work in progress, I'll add better docs later™️
 
 ```js
 import { z } from 'zod';
