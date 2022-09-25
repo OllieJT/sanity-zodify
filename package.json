@@ -37,8 +37,7 @@
 		"ts": "tsc --pretty --noImplicitAny --noEmit"
 	},
 	"lint-staged": {
-		"*.{js,ts,json}": "prettier  --write",
-		"*.ts": "tsc --pretty --noImplicitAny --noEmit"
+		"*.{js,ts,json}": "prettier  --write"
 	},
 	"devDependencies": {
 		"@inqling/prettier-config": "^1.1.0",
