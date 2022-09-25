@@ -17,6 +17,14 @@
 		"email": "ollie@inqling.studio",
 		"url": "https://inqling.studio/"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/OllieJT/sanity-zodify.git"
+	},
+	"bugs": {
+		"url": "https://github.com/OllieJT/sanity-zodify/issues"
+	},
+	"homepage": "https://github.com/OllieJT/sanity-zodify#readme",
 	"prettier": "@inqling/prettier-config",
 	"scripts": {
 		"dev": "vite",
