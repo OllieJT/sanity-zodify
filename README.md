@@ -34,17 +34,17 @@ pnpm add -D sanity-zodify
 
 ```js
 import { z } from 'zod';
-import { S } from './src';
+import * as S from './src';
 
 const colors = z.union([z.literal('red'), z.literal('green'), z.literal('blue')]);
 
-const Homepage = S.document.extend({
-	title: S.string,
-	subtitle: S.string.optional(),
-	thumbnail: S.image,
+const Homepage = S.Document.extend({
+	title: z.String,
+	subtitle: S.String.optional(),
+	thumbnail: S.Image,
 	colors: z.union([z.literal('red'), z.literal('green'), z.literal('blue')]),
-	authors: z.array(S.string),
-	publishAt: S.datetime,
+	authors: z.array(S.String),
+	publishAt: S.Datetime,
 });
 
 // raw_data is NOT type safe.
