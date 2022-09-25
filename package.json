@@ -1,5 +1,5 @@
 {
-	"name": "sanity-zodify",
+	"name": "zodity",
 	"version": "0.0.4",
 	"license": "Apache-3.0",
 	"description": "",
@@ -19,12 +19,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/OllieJT/sanity-zodify.git"
+		"url": "git+https://github.com/OllieJT/zodity.git"
 	},
 	"bugs": {
-		"url": "https://github.com/OllieJT/sanity-zodify/issues"
+		"url": "https://github.com/OllieJT/zodity/issues"
 	},
-	"homepage": "https://github.com/OllieJT/sanity-zodify#readme",
+	"homepage": "https://github.com/OllieJT/zodity#readme",
 	"prettier": "@inqling/prettier-config",
 	"scripts": {
 		"dev": "vite",

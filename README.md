@@ -1,4 +1,4 @@
-# Sanity Zodify
+# Zodity: Zod models for Sanity
 
 A toolkit to maintain typesafety when working with data from Sanity - intended for use with groq, but not a requirement.
 
@@ -34,7 +34,7 @@ pnpm add -D sanity-zodify
 
 ```js
 import { z } from 'zod';
-import * as S from './src';
+import * as S from 'zodity';
 
 const colors = z.union([z.literal('red'), z.literal('green'), z.literal('blue')]);
 
