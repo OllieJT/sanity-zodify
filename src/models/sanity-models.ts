@@ -1,43 +1,45 @@
 import { z } from 'zod';
 import { stringDate } from './utility-models';
 
-export const SanityBoolean = z.boolean();
-export const SanityDate = stringDate;
-export const SanityDatetime = stringDate;
-export const SanityNumber = z.number();
-export const SanityString = z.string();
-export const SanityText = z.string();
-export const SanityUrl = z
+export const Block = z.any();
+export const Boolean = z.boolean();
+export const Date = stringDate;
+export const Datetime = stringDate;
+export const Number = z.number();
+export const String = z.string();
+export const Text = z.string();
+export const Url = z
 	.string()
 	.url()
 	.transform((value) => new URL(value));
 
-export const SanityReference = z.object({ _type: z.literal('reference'), _ref: z.string() });
-export const SanityDocument = z.object({
+export const Reference = z.object({ _type: z.literal('reference'), _ref: z.string() });
+export const Document = z.object({
 	_id: z.string(),
 	_rev: z.string(),
 	_type: z.string(),
-	_createdAt: SanityDatetime,
-	_updatedAt: SanityDatetime,
+	_createdAt: Datetime,
+	_updatedAt: Datetime,
+	fields: z.array(z.unknown()),
 });
 
-export const SanitySlug = z.object({ _type: z.literal('slug'), current: z.string() });
-export const SanityGeopoint = z.object({
+export const Slug = z.object({ _type: z.literal('slug'), current: z.string() });
+export const Geopoint = z.object({
 	_type: z.literal('geopoint'),
 	alt: z.number(),
 	lat: z.number(),
 	lng: z.number(),
 });
 
-export const SanityImage = z.object({ _type: z.literal('image'), asset: SanityReference });
-const SanityImageAssetMetadataPalette = z.object({
+export const Image = z.object({ _type: z.literal('image'), asset: Reference });
+const ImageAssetMetadataPalette = z.object({
 	_type: z.literal('sanity.imagePaletteSwatch'),
 	background: z.string(),
 	foreground: z.string(),
 	population: z.number(),
 	title: z.string(),
 });
-export const SanityImageAsset = SanityDocument.extend({
+export const ImageAsset = Document.extend({
 	_type: z.literal('sanity.imageAsset'),
 	assetId: z.string(),
 	extension: z.string(),
@@ -62,19 +64,19 @@ export const SanityImageAsset = SanityDocument.extend({
 		}),
 		palette: z.object({
 			_type: z.literal('sanity.imagePalette'),
-			darkMuted: SanityImageAssetMetadataPalette,
-			darkVibrant: SanityImageAssetMetadataPalette,
-			dominant: SanityImageAssetMetadataPalette,
-			lightMuted: SanityImageAssetMetadataPalette,
-			lightVibrant: SanityImageAssetMetadataPalette,
-			muted: SanityImageAssetMetadataPalette,
-			vibrant: SanityImageAssetMetadataPalette,
+			darkMuted: ImageAssetMetadataPalette,
+			darkVibrant: ImageAssetMetadataPalette,
+			dominant: ImageAssetMetadataPalette,
+			lightMuted: ImageAssetMetadataPalette,
+			lightVibrant: ImageAssetMetadataPalette,
+			muted: ImageAssetMetadataPalette,
+			vibrant: ImageAssetMetadataPalette,
 		}),
 	}),
 });
 
-export const SanityFile = z.object({ _type: z.literal('file'), asset: SanityReference });
-export const SanityFileAsset = SanityDocument.extend({
+export const File = z.object({ _type: z.literal('file'), asset: Reference });
+export const FileAsset = Document.extend({
 	_type: z.literal('sanity.fileAsset'),
 	assetId: z.string(),
 	extension: z.string(),
@@ -88,19 +90,19 @@ export const SanityFileAsset = SanityDocument.extend({
 });
 
 export const S = {
-	boolean: SanityBoolean,
-	date: SanityDate,
-	datetime: SanityDatetime,
-	number: SanityNumber,
-	string: SanityString,
-	text: SanityText,
-	url: SanityUrl,
-	reference: SanityReference,
-	document: SanityDocument,
-	slug: SanitySlug,
-	geopoint: SanityGeopoint,
-	image: SanityImage,
-	imageAsset: SanityImageAsset,
-	file: SanityFile,
-	fileAsset: SanityFileAsset,
+	boolean: Boolean,
+	date: Date,
+	datetime: Datetime,
+	number: Number,
+	string: String,
+	text: Text,
+	url: Url,
+	reference: Reference,
+	document: Document,
+	slug: Slug,
+	geopoint: Geopoint,
+	image: Image,
+	imageAsset: ImageAsset,
+	file: File,
+	fileAsset: FileAsset,
 };

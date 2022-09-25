@@ -1,15 +1,43 @@
-export * from './models/sanity-models';
+export { S } from './models/sanity-models';
 export * from './models/utility-models';
 
-/* import type { Schema } from 'sanity';
-import validate from './lib/handle-sanity-schema';
-import { handleTitle } from './lib/helper';
+import { sanitySchemas } from './lib/sanity-schemas';
 
-interface PreZod {
-	label: string;
-	name: string;
-	validation: any;
+import type { Schema } from 'sanity';
+
+function isCompilation(s: Schema.IntrinsicTypeDefinition) {
+	return s.type === 'array' || s.type === 'object' || s.type === 'document';
 }
+
+export function handleSchemas(schemas: Schema.IntrinsicTypeDefinition[]) {
+	for (const schema of schemas) {
+		const aliasSchema = sanitySchemas.get(schema.type);
+		if (aliasSchema) sanitySchemas.set(schema.name, aliasSchema);
+		else {
+			if (isCompilation(schema)) continue;
+
+			console.error(`⛔️ Not handling models for ${schema.type} (${schema.name})`);
+			// throw new Error(`⛔️ Unexpected schema type: ${schema.type} (${schema.name})`);
+		}
+
+		console.log('💠 Total Schemas:', sanitySchemas.size);
+
+		// const label = handleTitle(schema.title)
+		// const name = schema.name;
+	}
+
+	for (const schema of schemas) {
+		if (!isCompilation(schema)) continue;
+		console.error(`TODO: create model for ${schema.name} (${schema.type})`);
+
+		// const label = handleTitle(schema.title)
+		// const name = schema.name;
+	}
+	console.log([...sanitySchemas.entries()]);
+}
+
+/*
+
 
 export function handleSchemas(schemas: Schema.IntrinsicTypeDefinition[]) {
 	const preZod = schemas.reduce((prev, curr) => {
@@ -34,4 +62,7 @@ export function handleSchemas(schemas: Schema.IntrinsicTypeDefinition[]) {
 	}, [] as PreZod[]);
 
 	return preZod;
-} */
+}
+
+
+*/
