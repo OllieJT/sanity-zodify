@@ -10,8 +10,6 @@
 		"outDir": "dist",
 
 		"declaration": true,
-		"emitDeclarationOnly": true,
-		"noEmit": false,
 
 		"allowJs": true,
 		"checkJs": true,
@@ -34,6 +32,6 @@
 		"resolveJsonModule": true,
 		"useDefineForClassFields": true
 	},
-	"include": ["src/**/*.ts"],
-	"exclude": ["../node_modules/**"]
+	"include": ["./src/**/*.ts"],
+	"exclude": ["node_modules", "**/node_modules/**"]
 }

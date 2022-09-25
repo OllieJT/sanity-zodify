@@ -28,7 +28,7 @@
 	"prettier": "@inqling/prettier-config",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build && tsc",
+		"build": "vite build && tsc --emitDeclarationOnly",
 		"preview": "vite preview",
 		"demo": "npm run build && node ./scripts/demo.js",
 		"prepare": "npx husky install",
@@ -38,7 +38,7 @@
 	},
 	"lint-staged": {
 		"*.{js,ts,json}": "prettier  --write",
-		"*.{ts}": "tsc --pretty --noImplicitAny --noEmit"
+		"*.ts": "tsc --pretty --noImplicitAny --noEmit"
 	},
 	"devDependencies": {
 		"@inqling/prettier-config": "^1.1.0",
