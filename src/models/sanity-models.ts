@@ -3,7 +3,7 @@ import { stringDate } from './utility-models';
 
 export const SanityBoolean = z.boolean();
 export const SanityDate = stringDate;
-export const SanityDateTime = stringDate;
+export const SanityDatetime = stringDate;
 export const SanityNumber = z.number();
 export const SanityString = z.string();
 export const SanityText = z.string();
@@ -17,8 +17,8 @@ export const SanityDocument = z.object({
 	_id: z.string(),
 	_rev: z.string(),
 	_type: z.string(),
-	_createdAt: SanityDateTime,
-	_updatedAt: SanityDateTime,
+	_createdAt: SanityDatetime,
+	_updatedAt: SanityDatetime,
 });
 
 export const SanitySlug = z.object({ _type: z.literal('slug'), current: z.string() });
@@ -86,3 +86,21 @@ export const SanityFileAsset = SanityDocument.extend({
 	uploadId: z.string(),
 	url: z.string().url(),
 });
+
+export const S = {
+	boolean: SanityBoolean,
+	date: SanityDate,
+	datetime: SanityDatetime,
+	number: SanityNumber,
+	string: SanityString,
+	text: SanityText,
+	url: SanityUrl,
+	reference: SanityReference,
+	document: SanityDocument,
+	slug: SanitySlug,
+	geopoint: SanityGeopoint,
+	image: SanityImage,
+	imageAsset: SanityImageAsset,
+	file: SanityFile,
+	fileAsset: SanityFileAsset,
+};
