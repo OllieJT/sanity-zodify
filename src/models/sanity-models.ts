@@ -1,17 +1,14 @@
 import { z } from 'zod';
-import { stringDate } from './utility-models';
+import { stringToDate, stringToUrl } from './utility-models';
 
 export const Block = z.any();
 export const Boolean = z.boolean();
-export const Date = stringDate;
-export const Datetime = stringDate;
+export const Date = stringToDate;
+export const Datetime = stringToDate;
 export const Number = z.number();
 export const String = z.string();
 export const Text = z.string();
-export const Url = z
-	.string()
-	.url()
-	.transform((value) => new URL(value));
+export const Url = stringToUrl;
 
 export const Reference = z.object({ _type: z.literal('reference'), _ref: z.string() });
 export const Document = z.object({
@@ -89,20 +86,19 @@ export const FileAsset = Document.extend({
 	url: z.string().url(),
 });
 
-export const S = {
-	boolean: Boolean,
-	date: Date,
-	datetime: Datetime,
-	number: Number,
-	string: String,
-	text: Text,
-	url: Url,
-	reference: Reference,
-	document: Document,
-	slug: Slug,
-	geopoint: Geopoint,
-	image: Image,
-	imageAsset: ImageAsset,
-	file: File,
-	fileAsset: FileAsset,
-};
+export const Block_Raw = Block.toString();
+export const Boolean_Raw = Boolean.toString();
+export const Date_Raw = Date.toString();
+export const Datetime_Raw = Datetime.toString();
+export const Number_Raw = Number.toString();
+export const String_Raw = String.toString();
+export const Text_Raw = Text.toString();
+export const Url_Raw = Url.toString();
+export const Reference_Raw = Reference.toString();
+export const Document_Raw = Document.toString();
+export const Slug_Raw = Slug.toString();
+export const Geopoint_Raw = Geopoint.toString();
+export const Image_Raw = Image.toString();
+export const ImageAsset_Raw = ImageAsset.toString();
+export const File_Raw = File.toString();
+export const FileAsset_Raw = FileAsset.toString();

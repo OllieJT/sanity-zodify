@@ -1,39 +1,109 @@
-export { S } from './models/sanity-models';
 export * from './models/utility-models';
 
-import { sanitySchemas } from './lib/sanity-schemas';
+import { customModels, referenceModels, sanityModels } from './lib/sanity-schemas';
 
 import type { Schema } from 'sanity';
+import { z, ZodType } from 'zod';
+import { capitalize } from './lib/helper';
+import { Url_Raw } from './models/sanity-models';
 
-function isCompilation(s: Schema.IntrinsicTypeDefinition) {
-	return s.type === 'array' || s.type === 'object' || s.type === 'document';
+console.log(
+	'Url_Raw: ',
+	Url_Raw.toString(),
+	// Boolean_Raw,
+	// Datetime_Raw,
+	// Date_Raw,
+	// Document_Raw,
+	// FileAsset_Raw,
+	// File_Raw,
+	// Geopoint_Raw,
+	// ImageAsset_Raw,
+	// Image_Raw,
+	// Number_Raw,
+	// Reference_Raw,
+	// Slug_Raw,
+	// String_Raw,
+	// Text_Raw,
+	// Url_Raw,
+);
+
+function addModel(name: string, model: string) {
+	customModels.set(name, model);
+	referenceModels.set(name, capitalize(name));
 }
 
-export function handleSchemas(schemas: Schema.IntrinsicTypeDefinition[]) {
-	for (const schema of schemas) {
-		const aliasSchema = sanitySchemas.get(schema.type);
-		if (aliasSchema) sanitySchemas.set(schema.name, aliasSchema);
-		else {
-			if (isCompilation(schema)) continue;
+type SanitySchema = Schema.IntrinsicTypeDefinition;
 
-			console.error(`⛔️ Not handling models for ${schema.type} (${schema.name})`);
-			// throw new Error(`⛔️ Unexpected schema type: ${schema.type} (${schema.name})`);
+function handleArray(schema: Schema.ArrayDefinition) {
+	let arrayFields: string[] = [];
+	schema.of.forEach((field) => {
+		const exstingModel = referenceModels.get(field.type);
+		if (exstingModel) arrayFields.push(exstingModel);
+		else {
+			console.error(`⛔️ cannot find model for ${field.type} (${field.name})`);
+			// throw new Error(`⛔️ cannot find model for ${field.type} (${field.name})`);
+		}
+	});
+
+	//@ts-expect-error - fields is readonly
+	const arrayMultiField = z.union(arrayFields as unknown as ZodType[]);
+	const arraySingleField = arrayFields[0] as unknown as ZodType;
+
+	const model = z.array(arrayFields.length === 1 ? arraySingleField : arrayMultiField);
+	addModel(schema.name, 'model');
+
+	console.log([schema.type, schema.name, ': arrayFields :'].join(' '), arrayFields);
+}
+
+function handleObject(schema: Schema.DocumentDefinition | Schema.ObjectDefinition) {
+	let objectFields: Record<string, string> = {};
+	schema.fields.forEach((field) => {
+		const exstingModel = referenceModels.get(field.type);
+		if (exstingModel) {
+			objectFields = { ...objectFields, [field.name]: exstingModel };
+		} else {
+			if (exstingModel) {
+				objectFields = { ...objectFields, [field.name]: capitalize(field.name) };
+			}
+			console.warn(
+				`🚧 Optimistially assigning ${field.name} model to ${capitalize(field.name)}`,
+			);
+		}
+	});
+	console.log([schema.type, schema.name, ' : objectFields : '].join(' '), objectFields);
+}
+
+export function handleSchemas(schemas: SanitySchema[]) {
+	new Promise<SanitySchema[]>((resolve, _reject) => {
+		let remainder: SanitySchema[] = [];
+
+		for (const schema of schemas) {
+			const aliasSchema = sanityModels.get(schema.type);
+			if (aliasSchema) addModel(schema.name, 'aliasSchema');
+			else remainder.push(schema);
 		}
 
-		console.log('💠 Total Schemas:', sanitySchemas.size);
+		resolve(remainder);
+	}).then((schemas) => {
+		let remainder: SanitySchema[] = [];
 
-		// const label = handleTitle(schema.title)
-		// const name = schema.name;
+		for (const schema of schemas) {
+			if (schema.type === 'array') handleArray(schema);
+			else if (schema.type === 'object') handleObject(schema);
+			else if (schema.type === 'document') handleObject(schema);
+			else remainder.push(schema);
+		}
+
+		return remainder;
+	});
+
+	if (referenceModels.size != sanityModels.size + customModels.size) {
+		throw new Error('⛔️ Reference models out of sync with models');
+	} else {
+		console.log('✅ Reference models in sync with models');
 	}
 
-	for (const schema of schemas) {
-		if (!isCompilation(schema)) continue;
-		console.error(`TODO: create model for ${schema.name} (${schema.type})`);
-
-		// const label = handleTitle(schema.title)
-		// const name = schema.name;
-	}
-	console.log([...sanitySchemas.entries()]);
+	return [...customModels.entries()];
 }
 
 /*
