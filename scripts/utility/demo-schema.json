@@ -37,7 +37,7 @@
 	},
 	{ "title": "Parent", "name": "isParent", "type": "boolean" },
 	{ "title": "Date of birth", "name": "dob", "type": "date" },
-	{ "title": "Next Meeting", "name": "datetime", "type": "datetime" },
+	{ "title": "Next Meeting", "name": "nextMeeting", "type": "datetime" },
 	{ "title": "Lucky Number", "name": "luckyNumber", "type": "number" },
 	{ "title": "Nationality", "name": "nationality", "type": "string" },
 	{ "title": "BIO", "name": "bio", "type": "text" },
