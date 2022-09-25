@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { stringDate } from './utility-models';
+import { stringDate } from './utility-models.js';
 
 export const Boolean = z.boolean();
 export const Date = stringDate;
