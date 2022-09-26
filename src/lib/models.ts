@@ -4,17 +4,18 @@ import { schemaToModel } from './handle-models';
 export type SanitySchema = Schema.IntrinsicTypeDefinition;
 
 const withReference = `z.object({ _type: z.literal('reference'), _ref: z.string() })`;
+const withDate = `z.string().transform((v) => (v?.length ? new Date(v) : undefined))`;
 
 export function boolean(_schema: Schema.BooleanDefinition): string {
 	return `z.boolean()`;
 }
 
 export function date(_schema: Schema.DateDefinition): string {
-	return `z.string().transform((v) => (v?.length ? new Date(v) : undefined))`;
+	return withDate;
 }
 
 export function datetime(_schema: Schema.DatetimeDefinition): string {
-	return `z.string().transform((v) => (v?.length ? new Date(v) : undefined))`;
+	return withDate;
 }
 
 export function number(_schema: Schema.NumberDefinition): string {
@@ -84,6 +85,6 @@ export function object(
 	const fields = items.join(',\n\t');
 
 	if (schema.type === 'document') {
-		return `z.object({\n\t_id: z.string(),\n\t_rev: z.string(),\n\t_type: z.string(),\n\t_createdAt: Datetime,\n\t_updatedAt: Datetime\n}).extend({\n\t${fields}\n})`;
+		return `z.object({\n\t_id: z.string(),\n\t_rev: z.string(),\n\t_type: z.string(),\n\t_createdAt: ${withDate},\n\t_updatedAt: ${withDate}\n}).extend({\n\t${fields}\n})`;
 	} else return `z.object({\n\t${fields}\n})`;
 }
