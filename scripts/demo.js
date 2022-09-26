@@ -11,7 +11,8 @@ const schemaTypes = demoSchemaTypes;
 
 const res = handleSchemas({
 	schemas: schemaTypes,
-	outputPath: path.join(process.cwd(), 'thing.js'),
+	directory: process.cwd(),
+	fileName: 'thing',
 });
 
 console.log('res', res);
