@@ -6,6 +6,6 @@
 /dist
 *.log
 *.map
-*.js
 *.tsbuildinfo
 *.d.ts
+/.parcel-cache

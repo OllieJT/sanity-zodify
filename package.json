@@ -27,10 +27,9 @@
 	"homepage": "https://github.com/OllieJT/zodity#readme",
 	"prettier": "@inqling/prettier-config",
 	"scripts": {
-		"dev": "vite",
-		"build": "vite build && tsc --emitDeclarationOnly",
-		"preview": "vite preview",
-		"demo": "npm run build && node ./scripts/demo.js",
+		"dev": "parcel watch",
+		"build": "parcel build",
+		"demo": "node ./scripts/demo.js",
 		"prepare": "npx husky install",
 		"lint": "prettier --check .",
 		"format": "prettier --write .",
@@ -39,28 +38,36 @@
 	"lint-staged": {
 		"*.{js,ts,json}": "prettier  --write"
 	},
+	"dependencies": {
+		"zod": "^3.19.1"
+	},
 	"devDependencies": {
 		"@inqling/prettier-config": "^1.1.0",
+		"@parcel/packager-ts": "^2.7.0",
+		"@parcel/transformer-typescript-types": "^2.7.0",
+		"@types/node": "^16.11.60",
 		"groq": "^2.33.2",
 		"husky": "^8.0.1",
 		"lint-staged": "^13.0.3",
+		"parcel": "^2.7.0",
 		"prettier": "^2.7.1",
 		"sanity": "3.0.0-dev-preview.15",
-		"typescript": "^4.8.3",
-		"vite": "^3.1.0",
-		"zod": "^3.19.1"
+		"typescript": "~4.7.0"
 	},
-	"type": "module",
+	"engines": {
+		"node": ">= 16"
+	},
 	"files": [
-		"dist",
-		"src"
+		"dist"
 	],
-	"main": "./dist/index.umd.cjs",
-	"module": "./dist/index.js",
+	"source": "./src/index.ts",
+	"main": "./dist/main.js",
+	"module": "./dist/module.js",
+	"types": "./dist/types.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.umd.cjs"
+			"import": "./dist/module.js",
+			"require": "./dist/main.js"
 		}
 	}
 }

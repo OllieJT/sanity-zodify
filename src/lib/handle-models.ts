@@ -14,18 +14,11 @@ import {
 	string,
 	text,
 	url,
-} from './models.js';
+} from './models';
 
-/**
- * @typedef {import('./models.js').SanitySchema} SanitySchema
- */
+import type { SanitySchema } from './models';
 
-/**
- * @param  {SanitySchema} schema
- * @param  {SanitySchema[]} schemas
- * @returns string
- */
-export function schemaToModel(schema, schemas) {
+export function schemaToModel(schema: SanitySchema, schemas: SanitySchema[]): string {
 	if (schema.type === 'boolean') return boolean(schema);
 	else if (schema.type === 'date') return date(schema);
 	else if (schema.type === 'datetime') return datetime(schema);
@@ -45,7 +38,6 @@ export function schemaToModel(schema, schemas) {
 	else {
 		const customSchema = schemas.find((s) => s.name === schema.type);
 		if (customSchema) {
-			/** @type { string } **/
 			const foundSchema = schemaToModel(customSchema, schemas);
 			return foundSchema;
 		} else {
