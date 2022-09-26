@@ -63,7 +63,7 @@
 	"source": "./src/index.ts",
 	"main": "./dist/main.cjs",
 	"module": "./dist/main.mjs",
-	"types": "./dist/types.d.ts",
+	"types": "./dist/main.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/main.mjs",
